@@ -12,6 +12,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+
 // Routes
 const submitRoutes = require('./routes/submitRoute');
 app.use('/submit', submitRoutes);
