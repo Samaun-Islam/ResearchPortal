@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-4xl mx-auto px-6 py-10">
+    <h1 class="text-3xl font-bold text-blue-700 mb-6">Privacy Policy</h1>
+    <p class="mb-4">Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information.</p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Information We Collect</h2>
+    <p class="mb-4">We may collect your name, email, and other personal details when you register or contact us.</p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">How We Use Your Information</h2>
+    <p class="mb-4">Your information is used only to improve user experience and provide support.</p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Contact</h2>
+    <p>If you have any questions, email us at <a href="mailto:support@example.com" class="text-blue-600 underline">support@example.com</a>.</p>
+  </div>
+</body>
+</html>
+<!-- index.html or any page -->
+<div id="footer-placeholder"></div>
+<script>
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>

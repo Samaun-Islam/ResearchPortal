@@ -66,20 +66,12 @@
       color: #065f46;
     }
     
-    .status-review {
+    .status-unpublished {
       background-color: #fef3c7;
-      color: #92400e;
+       color: #b91c1c;
     }
     
-    .status-rejected {
-      background-color: #fee2e2;
-      color: #b91c1c;
-    }
     
-    .status-revision {
-      background-color: #e0e7ff;
-      color: #4338ca;
-    }
     
     .modal {
       display: none;
@@ -118,6 +110,10 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    #pdf-preview-container {
+      min-height: 400px;
     }
   </style>
 </head>
@@ -175,8 +171,7 @@
         <div class="flex flex-wrap gap-2">
           <button class="filter-button active px-4 py-2 rounded-md bg-gray-100 text-gray-700 text-sm font-medium" data-filter="all">All Papers</button>
           <button class="filter-button px-4 py-2 rounded-md bg-gray-100 text-gray-700 text-sm font-medium" data-filter="published">Published</button>
-          <button class="filter-button px-4 py-2 rounded-md bg-gray-100 text-gray-700 text-sm font-medium" data-filter="review">Under Review</button>
-          <button class="filter-button px-4 py-2 rounded-md bg-gray-100 text-gray-700 text-sm font-medium" data-filter="revision">Needs Revision</button>
+          <button class="filter-button px-4 py-2 rounded-md bg-gray-100 text-gray-700 text-sm font-medium" data-filter="unpublished">unpublished</button>
         </div>
         
         <!-- Sort By -->
@@ -216,9 +211,9 @@
             <span class="status-badge status-published">Published</span>
           </div>
           <div class="mb-4">
-            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Sarah Johnson, Dr. Michael Chen, Dr. Robert Kim</p>
-            <p class="text-gray-600 mb-2"><strong>Institution:</strong> Harvard Medical School</p>
-            <p class="text-gray-600"><strong>Date Submitted:</strong> June 15, 2023</p>
+            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Fatima Rahman (Department of Genetic Engineering, DU),Dr. Arif Hassan (Bangabandhu Sheikh Mujib Medical University),Dr.Nusrat Jahan (Sylhet MAG Osmani Medical College)</p>
+            <p class="text-gray-600 mb-2"><strong>Institution:</strong> Chittagong Medical College</p>
+            <p class="text-gray-600"><strong>Date Submitted:</strong> June 15, 2025</p>
           </div>
           <p class="text-gray-700 mb-4">A groundbreaking study on novel gene therapy approaches for treating rare genetic disorders, focusing on delivery mechanisms and clinical outcomes.</p>
           <div class="flex flex-wrap gap-2 mb-4">
@@ -237,15 +232,15 @@
         </div>
         
         <!-- Paper 2 -->
-        <div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="review" data-category="computer-science" data-title="Quantum Computing: Breaking New Barriers" data-date="2023-07-03" data-citations="0">
+        <div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="unpublished" data-category="computer-science" data-title="Quantum Computing: Breaking New Barriers" data-date="2023-07-03" data-citations="0">
           <div class="flex justify-between items-start mb-4">
             <h3 class="text-xl font-semibold text-blue-800">Quantum Computing: Breaking New Barriers</h3>
-            <span class="status-badge status-review">Under Review</span>
+            <span class="status-badge status-unpublished">unpublished</span>
           </div>
           <div class="mb-4">
-            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Prof. James Wilson, Dr. Emily Rodriguez</p>
-            <p class="text-gray-600 mb-2"><strong>Institution:</strong> MIT</p>
-            <p class="text-gray-600"><strong>Date Submitted:</strong> July 3, 2023</p>
+            <p class="text-gray-600 mb-2"><strong>Authors:</strong>Dr. Ayesha Rahman(Department of Psychology, University of Dhaka),Prof. Dewan Farid (Jahangirnagar University)</p>
+            <p class="text-gray-600 mb-2"><strong>Institution:</strong> Bangladesh Institute of Psychological Research, Dhaka</p>
+            <p class="text-gray-600"><strong>Date Submitted:</strong> July 3, 2025</p>
           </div>
           <p class="text-gray-700 mb-4">Exploring the latest advancements in quantum computing and its practical applications in cryptography, optimization problems, and machine learning.</p>
           <div class="flex flex-wrap gap-2 mb-4">
@@ -270,7 +265,7 @@
             <span class="status-badge status-published">Published</span>
           </div>
           <div class="mb-4">
-            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Amanda Smith, Prof. David Johnson</p>
+            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Mohammad Ali (Bangabandhu Sheikh Mujibur Rahman Agricultural University),Prof. Salma Begum (Khulna University),Dr. Anika Tabassum (Patuakhali Science and Technology University)</p>
             <p class="text-gray-600 mb-2"><strong>Institution:</strong> Stanford University</p>
             <p class="text-gray-600"><strong>Date Submitted:</strong> May 22, 2023</p>
           </div>
@@ -290,106 +285,105 @@
           </div>
         </div>
         
-        <!-- Paper 4 -->
-        <div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="revision" data-category="engineering" data-title="Sustainable Urban Planning: Case Studies from Global Cities" data-date="2023-07-10" data-citations="0">
-          <div class="flex justify-between items-start mb-4">
-            <h3 class="text-xl font-semibold text-blue-800">Sustainable Urban Planning: Case Studies from Global Cities</h3>
-            <span class="status-badge status-revision">Needs Revision</span>
-          </div>
-          <div class="mb-4">
-            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Lisa Chen, Prof. Thomas Brown</p>
-            <p class="text-gray-600 mb-2"><strong>Institution:</strong> University of California, Berkeley</p>
-            <p class="text-gray-600"><strong>Date Submitted:</strong> July 10, 2023</p>
-          </div>
-          <p class="text-gray-700 mb-4">An examination of sustainable urban planning practices in major global cities, with recommendations for policy implementation.</p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Urban Planning</span>
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Sustainability</span>
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Policy</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-600 text-sm"><i class="fas fa-eye mr-1"></i> 542 views</span>
-              <span class="text-gray-600 text-sm ml-4"><i class="fas fa-download mr-1"></i> 0 downloads</span>
-              <span class="text-gray-600 text-sm ml-4"><i class="fas fa-quote-right mr-1"></i> 0 citations</span>
-            </div>
-            <button class="view-paper-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition" data-paper-id="4">View Paper</button>
-          </div>
-        </div>
-        
-        <!-- Paper 5 -->
-        <div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="published" data-category="computer-science" data-title="Artificial Intelligence in Healthcare: Ethical Considerations" data-date="2023-04-05" data-citations="27">
-          <div class="flex justify-between items-start mb-4">
-            <h3 class="text-xl font-semibold text-blue-800">Artificial Intelligence in Healthcare: Ethical Considerations</h3>
-            <span class="status-badge status-published">Published</span>
-          </div>
-          <div class="mb-4">
-            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Richard Lee, Dr. Maria Garcia</p>
-            <p class="text-gray-600 mb-2"><strong>Institution:</strong> Johns Hopkins University</p>
-            <p class="text-gray-600"><strong>Date Submitted:</strong> April 5, 2023</p>
-          </div>
-          <p class="text-gray-700 mb-4">An analysis of ethical challenges in implementing AI solutions in healthcare settings, including privacy concerns and algorithmic bias.</p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Artificial Intelligence</span>
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Healthcare</span>
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Ethics</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-600 text-sm"><i class="fas fa-eye mr-1"></i> 1,876 views</span>
-              <span class="text-gray-600 text-sm ml-4"><i class="fas fa-download mr-1"></i> 423 downloads</span>
-              <span class="text-gray-600 text-sm ml-4"><i class="fas fa-quote-right mr-1"></i> 27 citations</span>
-            </div>
-            <button class="view-paper-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition" data-paper-id="5">View Paper</button>
-          </div>
-        </div>
-        
-        <!-- Paper 6 -->
-        <div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="rejected" data-category="environmental" data-title="Climate Change Impact on Biodiversity: A Meta-Analysis" data-date="2023-06-28" data-citations="0">
-          <div class="flex justify-between items-start mb-4">
-            <h3 class="text-xl font-semibold text-blue-800">Climate Change Impact on Biodiversity: A Meta-Analysis</h3>
-            <span class="status-badge status-rejected">Rejected</span>
-          </div>
-          <div class="mb-4">
-            <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Jennifer Williams, Prof. Carlos Rodriguez</p>
-            <p class="text-gray-600 mb-2"><strong>Institution:</strong> University of Oxford</p>
-            <p class="text-gray-600"><strong>Date Submitted:</strong> June 28, 2023</p>
-          </div>
-          <p class="text-gray-700 mb-4">A meta-analysis of studies examining the effects of climate change on global biodiversity, with projections for future ecosystem changes.</p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Climate Change</span>
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Biodiversity</span>
-            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Ecology</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-gray-600 text-sm"><i class="fas fa-eye mr-1"></i> 324 views</span>
-              <span class="text-gray-600 text-sm ml-4"><i class="fas fa-download mr-1"></i> 0 downloads</span>
-              <span class="text-gray-600 text-sm ml-4"><i class="fas fa-quote-right mr-1"></i> 0 citations</span>
-            </div>
-            <button class="view-paper-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition" data-paper-id="6">View Paper</button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Pagination -->
-      <div class="flex justify-center">
-        <nav class="inline-flex rounded-md shadow">
-          <a href="#" class="pagination-button px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-l-md hover:bg-gray-50">
-            <i class="fas fa-chevron-left"></i>
-          </a>
-          <a href="#" class="pagination-button px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700 active">1</a>
-          <a href="#" class="pagination-button px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700">2</a>
-          <a href="#" class="pagination-button px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700">3</a>
-          <span class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700">...</span>
-          <a href="#" class="pagination-button px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700">8</a>
-          <a href="#" class="pagination-button px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-r-md hover:bg-gray-50">
-            <i class="fas fa-chevron-right"></i>
-          </a>
-        </nav>
-      </div>
+       <!-- Paper 4 - Bangladeshi Version -->
+<div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="unpublished" data-category="engineering" data-title="Sustainable Urban Planning: Dhaka Case Study" data-date="2023-07-10" data-citations="0">
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-xl font-semibold text-blue-800">Sustainable Urban Planning: Lessons from Dhaka's Development</h3>
+    <span class="status-badge status-unpublished">unpublished</span>
+  </div>
+  <div class="mb-4">
+    <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Farhana Islam (BUET), Prof. Abdullah Al-Mamun (RU)</p>
+    <p class="text-gray-600 mb-2"><strong>Institution:</strong> Bangladesh University of Engineering and Technology</p>
+    <p class="text-gray-600"><strong>Date Submitted:</strong> July 10, 2023</p>
+  </div>
+  <p class="text-gray-700 mb-4">An analysis of sustainable urban planning challenges in Dhaka, with case studies from Hatirjheel and Purbachal projects, proposing solutions for traffic congestion and green space integration.</p>
+  <div class="flex flex-wrap gap-2 mb-4">
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Urban Planning</span>
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Megacity Challenges</span>
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Bangladesh</span>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <span class="text-gray-600 text-sm"><i class="fas fa-eye mr-1"></i> 1,203 views</span>
+      <span class="text-gray-600 text-sm ml-4"><i class="fas fa-download mr-1"></i> 87 downloads</span>
+      <span class="text-gray-600 text-sm ml-4"><i class="fas fa-quote-right mr-1"></i> 5 citations</span>
     </div>
-  </section>
+    <button class="view-paper-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition" data-paper-id="4">View Paper</button>
+  </div>
+</div>
+
+<!-- Paper 5 - Bangladeshi Version -->
+<div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="published" data-category="computer-science" data-title="AI in Bangladeshi Healthcare" data-date="2023-04-05" data-citations="27">
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-xl font-semibold text-blue-800">Implementing AI in Bangladeshi Healthcare: Challenges & Opportunities</h3>
+    <span class="status-badge status-published">Published</span>
+  </div>
+  <div class="mb-4">
+    <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Sabrina Ahmed (DU), Dr. Rashed Khan (MIST)</p>
+    <p class="text-gray-600 mb-2"><strong>Institution:</strong> Dhaka University Computer Science Department</p>
+    <p class="text-gray-600"><strong>Date Submitted:</strong> April 5, 2023</p>
+  </div>
+  <p class="text-gray-700 mb-4">Case studies from Bangabandhu Sheikh Mujib Medical University on implementing AI diagnostic tools in resource-constrained settings, addressing data scarcity and cultural acceptance.</p>
+  <div class="flex flex-wrap gap-2 mb-4">
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">AI Implementation</span>
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Global South</span>
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Medical Ethics</span>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <span class="text-gray-600 text-sm"><i class="fas fa-eye mr-1"></i> 2,450 views</span>
+      <span class="text-gray-600 text-sm ml-4"><i class="fas fa-download mr-1"></i> 512 downloads</span>
+      <span class="text-gray-600 text-sm ml-4"><i class="fas fa-quote-right mr-1"></i> 27 citations</span>
+    </div>
+    <button class="view-paper-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition" data-paper-id="5">View Paper</button>
+  </div>
+</div>
+
+<!-- Paper 6 - Bangladeshi Version -->
+<div class="paper-card bg-white p-6 rounded-lg shadow-sm" data-status="unpublished" data-category="environmental" data-title="Sundarbans Biodiversity Study" data-date="2023-06-28" data-citations="0">
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-xl font-semibold text-blue-800">Climate Change Impacts on Sundarbans Mangrove Biodiversity</h3>
+    <span class="status-badge status-unpublished">unpublished</span>
+  </div>
+  <div class="mb-4">
+    <p class="text-gray-600 mb-2"><strong>Authors:</strong> Dr. Tania Huq (KU), Prof. Jamal Uddin (CU)</p>
+    <p class="text-gray-600 mb-2"><strong>Institution:</strong> Khulna University Environmental Science Department</p>
+    <p class="text-gray-600"><strong>Date Submitted:</strong> June 28, 2023</p>
+  </div>
+  <p class="text-gray-700 mb-4">Analysis of salinity intrusion effects on Royal Bengal Tiger habitats and mangrove species composition in Bangladesh's Sundarbans, comparing data from 2003-2023.</p>
+  <div class="flex flex-wrap gap-2 mb-4">
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Mangrove Ecology</span>
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Sundarbans</span>
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Salinity Impact</span>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <span class="text-gray-600 text-sm"><i class="fas fa-eye mr-1"></i> 897 views</span>
+      <span class="text-gray-600 text-sm ml-4"><i class="fas fa-download mr-1"></i> 0 downloads</span>
+      <span class="text-gray-600 text-sm ml-4"><i class="fas fa-quote-right mr-1"></i> 0 citations</span>
+    </div>
+    <button class="view-paper-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition" data-paper-id="6">View Paper</button>
+  </div>
+</div>
+      
+ <!-- Pagination (Centered and Fixed Size Buttons) -->
+    <div class="flex justify-center mt-10">
+      <nav class="inline-flex space-x-1">
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-200 text-gray-700">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded bg-blue-500 text-white">1</a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-200 text-gray-700">2</a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-200 text-gray-700">3</a>
+        <span class="w-10 h-10 flex items-center justify-center text-gray-500">...</span>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-200 text-gray-700">8</a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-200 text-gray-700">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </nav>
+    </div>
+  </div>
+</section>
 
   <!-- Paper View Modal -->
   <div id="paper-modal" class="modal">
@@ -422,10 +416,15 @@
         
         <div class="border-t border-gray-200 pt-6 mb-6">
           <h4 class="text-lg font-semibold mb-4">Paper Preview</h4>
-          <div class="bg-gray-100 p-6 rounded-lg mb-4 h-64 flex items-center justify-center">
-            <div class="text-center">
-              <i class="far fa-file-pdf text-red-500 text-5xl mb-4"></i>
-              <p class="text-gray-700">Preview not available. Please download the full paper.</p>
+          <div class="bg-gray-100 p-6 rounded-lg mb-4 h-96">
+            <div id="pdf-preview-container" class="h-full w-full">
+              <iframe id="pdf-viewer" class="w-full h-full border-0" src="" style="display: none;"></iframe>
+              <div id="pdf-loading" class="h-full flex items-center justify-center">
+                <div class="text-center">
+                  <i class="far fa-file-pdf text-red-500 text-5xl mb-4"></i>
+                  <p class="text-gray-700">Loading PDF preview...</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -440,7 +439,7 @@
             <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition flex items-center">
               <i class="fas fa-bookmark mr-2"></i> Save
             </button>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition flex items-center">
+            <button id="download-pdf-btn" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition flex items-center">
               <i class="fas fa-download mr-2"></i> Download PDF
             </button>
           </div>
@@ -449,70 +448,30 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container mx-auto px-6 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-          <h3 class="text-xl font-bold mb-4">Research Portal</h3>
-          <p class="text-blue-100 mb-4">Advancing knowledge through collaborative research and academic excellence.</p>
-          <div class="flex space-x-4">
-            <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-facebook"></i></a>
-            <a href="#" class="text-white hover:text-blue-200"><i class="fab fa-instagram"></i></a>
-          </div>
-        </div>
-        <div>
-          <h4 class="font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2">
-            <li><a href="index.html" class="text-blue-100 hover:text-white transition">Home</a></li>
-            <li><a href="#" class="text-blue-100 hover:text-white transition">About Us</a></li>
-            <li><a href="#" class="text-blue-100 hover:text-white transition">Research Fields</a></li>
-            <li><a href="#" class="text-blue-100 hover:text-white transition">Submit Research</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-semibold mb-4">Resources</h4>
-          <ul class="space-y-2">
-            <li><a href="guide.html" class="text-blue-100 hover:text-white transition">Guidelines</a></li>
-            <li><a href="#" class="text-blue-100 hover:text-white transition">FAQs</a></li>
-            <li><a href="#" class="text-blue-100 hover:text-white transition">Research Tools</a></li>
-            <li><a href="#" class="text-blue-100 hover:text-white transition">Publication Ethics</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-semibold mb-4">Contact Us</h4>
-          <ul class="space-y-2">
-            <li class="flex items-start">
-              <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
-              <span class="text-blue-100">123 University Ave, Research City, RC 10001</span>
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-envelope mr-2"></i>
-              <a href="mailto:info@researchportal.edu" class="text-blue-100 hover:text-white transition">info@researchportal.edu</a>
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-phone mr-2"></i>
-              <span class="text-blue-100">(123) 456-7890</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-t border-blue-500 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <p>&copy; 2023 University Research Portal. All rights reserved.</p>
-        </div>
-        <div>
-          <ul class="flex space-x-4">
-            <li><a href="#" class="text-blue-200 hover:text-white transition">Privacy Policy</a></li>
-            <li><a href="#" class="text-blue-200 hover:text-white transition">Terms of Use</a></li>
-            <li><a href="contact.html" class="text-blue-200 hover:text-white transition">Contact Support</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+<!-- index.html or any page -->
+<div id="footer-placeholder"></div>
+<script>
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
+
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -528,7 +487,8 @@
           keywords: ["Gene Therapy", "Rare Diseases", "Clinical Trials"],
           views: 1245,
           downloads: 328,
-          citations: 42
+          citations: 42,
+          pdfUrl: "D:\\hasnain\\ResearchPortal\\ResearchPortal\\backend\\uploads\\Myinfo-HSTU.pdf" // Added PDF URL
         },
         2: {
           title: "Quantum Computing: Breaking New Barriers",
@@ -540,7 +500,8 @@
           keywords: ["Quantum Computing", "Cryptography", "Machine Learning"],
           views: 876,
           downloads: 0,
-          citations: 0
+          citations: 0,
+          pdfUrl: "/sample-pdfs/paper2.pdf" // Added PDF URL
         },
         3: {
           title: "The Impact of Social Media on Mental Health",
@@ -552,7 +513,8 @@
           keywords: ["Social Media", "Mental Health", "Psychology"],
           views: 2103,
           downloads: 567,
-          citations: 31
+          citations: 31,
+          pdfUrl: "/sample-pdfs/paper3.pdf" // Added PDF URL
         },
         4: {
           title: "Sustainable Urban Planning: Case Studies from Global Cities",
@@ -561,10 +523,11 @@
           date: "July 10, 2023",
           status: "Needs Revision",
           abstract: "This research examines sustainable urban planning practices in ten major global cities across different continents. We analyze transportation systems, energy infrastructure, waste management, and green space allocation to identify best practices and common challenges. Based on these case studies, we propose a framework for policy implementation that can be adapted to various urban contexts and resource constraints.",
-          keywords: ["Urban Planning", "Sustainability", "Policy"],
+          keywords: ["Urban planning", "Sustainability", "Policy"],
           views: 542,
           downloads: 0,
-          citations: 0
+          citations: 0,
+          pdfUrl: "/sample-pdfs/paper4.pdf" // Added PDF URL
         },
         5: {
           title: "Artificial Intelligence in Healthcare: Ethical Considerations",
@@ -576,7 +539,8 @@
           keywords: ["Artificial Intelligence", "Healthcare", "Ethics"],
           views: 1876,
           downloads: 423,
-          citations: 27
+          citations: 27,
+          pdfUrl: "/sample-pdfs/paper5.pdf" // Added PDF URL
         },
         6: {
           title: "Climate Change Impact on Biodiversity: A Meta-Analysis",
@@ -588,7 +552,8 @@
           keywords: ["Climate Change", "Biodiversity", "Ecology"],
           views: 324,
           downloads: 0,
-          citations: 0
+          citations: 0,
+          pdfUrl: "/sample-pdfs/paper6.pdf" // Added PDF URL
         }
       };
       
@@ -741,6 +706,24 @@
             keywordSpan.textContent = keyword;
             keywordsContainer.appendChild(keywordSpan);
           });
+          
+          // Show loading state for PDF
+          document.getElementById('pdf-viewer').style.display = 'none';
+          document.getElementById('pdf-loading').style.display = 'flex';
+          
+          // Load PDF (in a real app, this would fetch from your backend)
+          setTimeout(() => {
+            const pdfViewer = document.getElementById('pdf-viewer');
+            pdfViewer.src = paper.pdfUrl; // Use the PDF URL from paper data
+            pdfViewer.style.display = 'block';
+            document.getElementById('pdf-loading').style.display = 'none';
+          }, 1000);
+          
+          // Set up download button
+          const downloadBtn = document.getElementById('download-pdf-btn');
+          downloadBtn.onclick = () => {
+            window.open(paper.pdfUrl, '_blank');
+          };
           
           // Show modal
           modal.classList.add('active');

@@ -1,89 +1,68 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const mongoose = require('mongoose');
-const ResearchPaper = require('../models/ResearchPaper');
-const { ObjectId } = require('mongodb');
+const { getGridFS } = require('../config/db');
+const ResearchPaper = require('../models/paper');
 
-// Use multer memory storage
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
-});
+const upload = multer();
 
-// POST /submit (store PDF in GridFS)
-router.post('/', upload.single('paper'), async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ error: 'PDF file is required and must be a valid PDF.' });
+      return res.status(400).json({ error: 'No file uploaded' });
     }
-    // Check for required fields
-    const requiredFields = [
-      'studentName', 'studentId', 'email', 'department', 'universityName', 'paperTitle', 'abstract', 'keywords'
-    ];
-    for (const field of requiredFields) {
-      if (!req.body[field]) {
-        return res.status(400).json({ error: `Missing required field: ${field}` });
+
+    const paperData = {
+      ...req.body,
+      paperFile: req.file.originalname,
+      status: 'submitted'
+    };
+
+    const newPaper = new ResearchPaper(paperData);
+    await newPaper.save();
+
+    const gridFSBucket = getGridFS();
+    const uploadStream = gridFSBucket.openUploadStream(req.file.originalname, {
+      metadata: {
+        paperId: newPaper._id,
+        contentType: req.file.mimetype
       }
-    }
-    // Store file in GridFS
-    const db = mongoose.connection.db;
-    const bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: 'papers' });
-    const uploadStream = bucket.openUploadStream(Date.now() + '-' + req.file.originalname, {
-      contentType: req.file.mimetype,
     });
+
     uploadStream.end(req.file.buffer);
-    uploadStream.on('error', (err) => {
-      console.error('Error uploading to GridFS:', err);
-      return res.status(500).json({ error: 'Error uploading file to database.' });
-    });
-    uploadStream.on('finish', async () => {
-      try {
-        const newPaper = new ResearchPaper({
-          studentName: req.body.studentName,
-          studentId: req.body.studentId,
-          email: req.body.email,
-          department: req.body.department,
-          universityName: req.body.universityName,
-          paperTitle: req.body.paperTitle,
-          abstract: req.body.abstract,
-          keywords: req.body.keywords,
-          paperFile: uploadStream.id, // Use the id from the upload stream
-        });
-        const savedPaper = await newPaper.save();
-        res.status(201).json({ message: 'Paper submitted successfully', submissionId: savedPaper._id });
-      } catch (error) {
-        console.error('Error saving paper:', error);
-        res.status(500).json({ error: 'Server error', details: error.message });
-      }
+
+    res.status(201).json({
+      message: 'Paper submitted successfully',
+      paperId: newPaper._id
     });
   } catch (error) {
-    console.error('Error in /submit:', error);
-    res.status(500).json({ error: 'Server error', details: error.message });
+    console.error('Submission error:', error);
+    res.status(500).json({ error: 'Failed to submit paper' });
   }
 });
 
-// GET /submit/paper/:id (download/view PDF from GridFS)
-router.get('/paper/:id', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const db = mongoose.connection.db;
-    const bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: 'papers' });
-    let fileId;
-    try {
-      fileId = new ObjectId(req.params.id);
-    } catch (e) {
-      return res.status(400).json({ error: 'Invalid file ID' });
-    }
-    const files = await db.collection('papers.files').find({ _id: fileId }).toArray();
-    if (!files || files.length === 0) {
-      return res.status(404).json({ error: 'File not found' });
-    }
-    res.set('Content-Type', files[0].contentType || 'application/pdf');
-    bucket.openDownloadStream(fileId).pipe(res);
+    const papers = await ResearchPaper.find().sort({ submittedAt: -1 });
+    res.json(papers);
   } catch (error) {
-    console.error('Error retrieving file:', error);
-    res.status(500).json({ error: 'Server error', details: error.message });
+    res.status(500).json({ error: 'Failed to fetch papers' });
   }
 });
 
 module.exports = router;
+
+router.get('/download/:id', async (req, res) => {
+  try {
+    const paper = await ResearchPaper.findById(req.params.id);
+    if (!paper) return res.status(404).json({ error: 'Paper not found' });
+
+    const gridFSBucket = getGridFS();
+    const downloadStream = gridFSBucket.openDownloadStreamByName(paper.paperFile);
+    
+    res.set('Content-Type', 'application/pdf');
+    downloadStream.pipe(res);
+  } catch (error) {
+    res.status(500).json({ error: 'Download failed' });
+  }
+});

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Tools</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style> 
+   footer {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 2rem 0;
+    }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-4xl mx-auto px-6 py-10">
+    <h1 class="text-3xl font-bold text-blue-700 mb-6">Research Tools</h1>
+
+    <p class="mb-4">Here are some helpful tools and resources to support your research journey:</p>
+
+    <ul class="list-disc pl-6 text-gray-700 space-y-2">
+      <li><a href="https://www.zotero.org/" class="text-blue-600 underline" target="_blank">Zotero</a> – A free reference manager for organizing citations.</li>
+      <li><a href="https://www.overleaf.com/" class="text-blue-600 underline" target="_blank">Overleaf</a> – An online LaTeX editor for academic papers.</li>
+      <li><a href="https://www.turnitin.com/" class="text-blue-600 underline" target="_blank">Turnitin</a> – Plagiarism checker for academic writing.</li>
+      <li><a href="https://www.grammarly.com/" class="text-blue-600 underline" target="_blank">Grammarly</a> – Writing assistant to improve clarity and grammar.</li>
+    </ul>
+  </div>
+</body>
+</html>
+<!-- index.html or any page -->
+<div id="footer-placeholder"></div>
+<script>
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>

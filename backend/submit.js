@@ -1,41 +1,59 @@
-async function submitForm(event) {
-    event.preventDefault();
+// routes/submitRoute.js
+const express = require('express');
+const router = express.Router();
+const multer = require('multer');
+const { getGridFS } = require('../config/db');
+const ResearchPaper = require('../models/paper');
 
-    const formElement = event.target;
-    const fileInput = document.getElementById('file-upload');
-    if (!fileInput.files.length) {
-        alert('Please upload your research paper (PDF)');
-        return;
+const upload = multer();
+
+// Submit research paper
+router.post('/', upload.single('file'), async (req, res) => {
+  try {
+    const gridFSBucket = getGridFS();
+    
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    const formData = new FormData();
-    formData.append('name', document.getElementById('student-name').value);
-    formData.append('studentId', document.getElementById('student-id').value);
-    formData.append('email', document.getElementById('email').value);
-    formData.append('department', document.getElementById('department').value);
-    formData.append('university', document.getElementById('university-name').value);
-    formData.append('paperTitle', document.getElementById('paper-title').value);
-    formData.append('abstract', document.getElementById('abstract').value);
-    formData.append('keywords', document.getElementById('keywords').value);
-    formData.append('paper', fileInput.files[0]);  // Append the selected PDF file
+    // Create a new Paper document
+    const paperData = {
+      ...req.body,
+      paperFile: req.file.originalname, // Store original filename
+      status: 'submitted'
+    };
 
-    try {
-        const response = await fetch('http://localhost:5000/submit', {
-            method: 'POST',
-            body: formData  // no content-type header here
-        });
+    const newPaper = new ResearchPaper(paperData);
+    await newPaper.save();
 
-        if (response.ok) {
-            const data = await response.json();
-            document.getElementById('success-modal').classList.remove('hidden');
-            document.getElementById('submission-date').innerText = new Date().toLocaleString();
-            document.getElementById('submission-id').innerText = data._id || 'N/A';
-            formElement.reset();
-        } else {
-            alert('Failed to submit the form');
-        }
-    } catch (error) {
-        console.error('Error submitting:', error);
-        alert('Server error');
-    }
-}
+    // Upload file to GridFS
+    const uploadStream = gridFSBucket.openUploadStream(req.file.originalname, {
+      metadata: {
+        paperId: newPaper._id,
+        contentType: req.file.mimetype
+      }
+    });
+
+    uploadStream.end(req.file.buffer);
+
+    res.status(201).json({
+      message: 'Paper submitted successfully',
+      paperId: newPaper._id
+    });
+  } catch (error) {
+    console.error('Submission error:', error);
+    res.status(500).json({ error: 'Failed to submit paper' });
+  }
+});
+
+// Get all papers
+router.get('/', async (req, res) => {
+  try {
+    const papers = await ResearchPaper.find().sort({ submittedAt: -1 });
+    res.json(papers);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch papers' });
+  }
+});
+
+module.exports = router;

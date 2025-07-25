@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style> 
+   footer {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 2rem 0;
+    }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-4xl mx-auto px-6 py-10">
+    <h1 class="text-3xl font-bold text-blue-700 mb-6">Terms of Use</h1>
+    <p class="mb-4">By using this website, you agree to the following terms and conditions. Please read them carefully.</p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">1. Use of Service</h2>
+    <p class="mb-4">You may use our website for educational or informational purposes. Do not use it for illegal activities.</p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">2. User Conduct</h2>
+    <p class="mb-4">Respect others and do not share harmful or misleading content.</p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">3. Changes to Terms</h2>
+    <p class="mb-4">We may update these terms at any time. Continued use of our site means you accept those changes.</p>
+  </div>
+</body>
+</html>
+<!-- index.html or any page -->
+<div id="footer-placeholder"></div>
+<script>
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>

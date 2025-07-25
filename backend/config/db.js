@@ -1,22 +1,24 @@
-require('dotenv').config();
 const mongoose = require('mongoose');
+const { GridFSBucket } = require('mongodb');
+
+let gridFSBucket;
 
 const connectDB = async () => {
-  const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    console.error('❌ MONGODB_URI not found in .env');
-    process.exit(1);
-  }
   try {
-    await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
+    
+    gridFSBucket = new GridFSBucket(conn.connection.db, {
+      bucketName: 'papers'
     });
-    console.log('✅ MongoDB Atlas connected successfully');
+
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    return gridFSBucket;
   } catch (err) {
-    console.error('❌ MongoDB connection error:', err.message);
+    console.error('MongoDB connection error:', err);
     process.exit(1);
   }
 };
 
-module.exports = connectDB;
+const getGridFS = () => gridFSBucket;
+
+module.exports = { connectDB, getGridFS };
