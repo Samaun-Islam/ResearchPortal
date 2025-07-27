@@ -500,7 +500,7 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           views: 1245,
           downloads: 328,
           citations: 42,
-          pdfUrl: "D:\\hasnain\\ResearchPortal\\ResearchPortal\\backend\\uploads\\Myinfo-HSTU.pdf" // Added PDF URL
+          pdfUrl: "http://localhost:5000/uploads/Myinfo-HSTU.pdf" // Updated to use server URL
         },
         2: {
           title: "Advancing Exchange Rate Forecasting: Leveraging Machine Learning and AI for Enhanced Accuracy in Global Financial Markets",
@@ -513,7 +513,7 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           views: 876,
           downloads: 0,
           citations: 0,
-          pdfUrl: "/sample-pdfs/paper2.pdf" // Added PDF URL
+          pdfUrl: "http://localhost:5000/uploads/unpublished/paper2.pdf" // Updated to unpublished paper2.pdf
         },
         3: {
           title: "The Impact of Social Media on Mental Health",
@@ -539,7 +539,7 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           views: 542,
           downloads: 0,
           citations: 0,
-          pdfUrl: "/sample-pdfs/paper4.pdf" // Added PDF URL
+          pdfUrl: "http://localhost:5000/uploads/unpublished/paper4.pdf" // Updated to unpublished paper4.pdf
         },
         5: {
           title: "Artificial Intelligence in Healthcare: Ethical Considerations",
@@ -565,7 +565,7 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           views: 324,
           downloads: 0,
           citations: 0,
-          pdfUrl: "/sample-pdfs/paper6.pdf" // Added PDF URL
+          pdfUrl: "http://localhost:5000/uploads/unpublished/paper6.pdf" // Updated to unpublished paper6.pdf
         }
       };
       
@@ -734,7 +734,13 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           // Set up download button
           const downloadBtn = document.getElementById('download-pdf-btn');
           downloadBtn.onclick = () => {
-            window.open(paper.pdfUrl, '_blank');
+            // Create a temporary link element to trigger download
+            const link = document.createElement('a');
+            link.href = paper.pdfUrl;
+            link.download = paper.title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
           };
           
           // Show modal
