@@ -724,12 +724,31 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           document.getElementById('pdf-viewer').style.display = 'none';
           document.getElementById('pdf-loading').style.display = 'flex';
           
-          // Load PDF (in a real app, this would fetch from your backend)
+          // Load PDF or show appropriate message
           setTimeout(() => {
             const pdfViewer = document.getElementById('pdf-viewer');
-            pdfViewer.src = paper.pdfUrl; // Use the PDF URL from paper data
-            pdfViewer.style.display = 'block';
-            document.getElementById('pdf-loading').style.display = 'none';
+            const pdfLoading = document.getElementById('pdf-loading');
+            
+            if (paper.status === "Published") {
+              // For published papers, show a message instead of PDF
+              pdfLoading.innerHTML = `
+                <div class="text-center">
+                  <i class="fas fa-lock text-gray-500 text-5xl mb-4"></i>
+                  <p class="text-gray-700 font-medium mb-2">This paper is published in IEEE</p>
+                  <p class="text-gray-600 text-sm">Access the full paper through IEEE Xplore</p>
+                  <button onclick="window.open('${paper.ieeeLink}', '_blank')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+                    <i class="fas fa-external-link-alt mr-2"></i>View on IEEE
+                  </button>
+                </div>
+              `;
+              pdfViewer.style.display = 'none';
+              pdfLoading.style.display = 'flex';
+            } else {
+              // For unpublished papers, load the PDF
+              pdfViewer.src = paper.pdfUrl;
+              pdfViewer.style.display = 'block';
+              pdfLoading.style.display = 'none';
+            }
           }, 1000);
           
           // Set up download button
