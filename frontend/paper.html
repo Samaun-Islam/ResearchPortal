@@ -498,7 +498,8 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           views: 1245,
           downloads: 328,
           citations: 42,
-          pdfUrl: "http://localhost:5000/uploads/Myinfo-HSTU.pdf" // Updated to use server URL
+          pdfUrl: "http://localhost:5000/uploads/Myinfo-HSTU.pdf", // Updated to use server URL
+          ieeeLink: "https://ieeexplore.ieee.org/document/8660780" // IEEE link for published paper
         },
         2: {
           title: "Advancing Exchange Rate Forecasting: Leveraging Machine Learning and AI for Enhanced Accuracy in Global Financial Markets",
@@ -524,7 +525,8 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           views: 2103,
           downloads: 567,
           citations: 31,
-          pdfUrl: "/sample-pdfs/paper3.pdf" // Added PDF URL
+          pdfUrl: "/sample-pdfs/paper3.pdf", // Added PDF URL
+          ieeeLink: "https://ieeexplore.ieee.org/document/example2" // IEEE link for published paper
         },
         4: {
           title: "Cultural Impact on Requirements Engineering Activities: Bangladeshi Practitioners' View",
@@ -550,7 +552,8 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           views: 1876,
           downloads: 423,
           citations: 27,
-          pdfUrl: "/sample-pdfs/paper5.pdf" // Added PDF URL
+          pdfUrl: "/sample-pdfs/paper5.pdf", // Added PDF URL
+          ieeeLink: "https://ieeexplore.ieee.org/document/example3" // IEEE link for published paper
         },
         6: {
           title: "Motamot: A Dataset for Revealing the Supremacy of Large Language Models over Transformer Models in Bengali Political Sentiment Analysis",
@@ -732,14 +735,26 @@ Abrar Nawar Alfy, Mohammad Shafiul Alam</p>
           // Set up download button
           const downloadBtn = document.getElementById('download-pdf-btn');
           downloadBtn.onclick = () => {
-            // Create a temporary link element to trigger download
-            const link = document.createElement('a');
-            link.href = paper.pdfUrl;
-            link.download = paper.title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            if (paper.status === "Published" && paper.ieeeLink) {
+              // For published papers, open IEEE link in new tab
+              window.open(paper.ieeeLink, '_blank');
+            } else {
+              // For unpublished papers, download the PDF directly
+              const link = document.createElement('a');
+              link.href = paper.pdfUrl;
+              link.download = paper.title.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
           };
+          
+          // Update button text based on paper status
+          if (paper.status === "Published") {
+            downloadBtn.innerHTML = '<i class="fas fa-external-link-alt mr-2"></i> View on IEEE';
+          } else {
+            downloadBtn.innerHTML = '<i class="fas fa-download mr-2"></i> Download PDF';
+          }
           
           // Show modal
           modal.classList.add('active');
